@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Register custom post type: 'Blood Requests'
+ */
+function blood_request_custom_post_types() {
+    $labels = array(
+        'name'               => 'Blood Request Posts',
+        'singular_name'      => 'Blood Request Post',
+        'add_new'            => 'Add New Post',
+        'all_items'          => 'All Posts',
+        'add_new_item'       => 'Add New Post',
+        'edit_item'          => 'Edit Post',
+        'new_item'           => 'New Blood Request Post',
+        'view_item'          => 'View Post',
+        'search_item'        => 'Search Blood Request Posts',
+        'not_found'          => 'No Blood Request Posts found',
+        'not_found_in_trash' => 'No Blood Request Posts found in trash',
+        'parent_item_colon'  => 'Parent Blood Request Post'
+    );
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'has_archive'        => true,
+        'publicly_queryable' => true,
+        'query_var'          => true,
+        'rewrite'            => true,
+        'capability_type'    => 'post',
+        'hierarchical'       => false,
+        'supports'           => array(
+            'title',
+            'editor',
+            'thumbnail',
+            'custom-fields',
+            'revisions',
+        ),
+        'taxonomies'         => array(),
+        'menu_position'      => 2,
+        'exclude_from_search'=> false,
+        'menu_icon'   => 'dashicons-heart',
+    );
+    register_post_type('blood_request', $args );
+
+    
+}
+add_action('init', 'blood_request_custom_post_types');
+
+/**
+ * Register custom post types: 'Bookings'
+ */
