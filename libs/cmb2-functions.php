@@ -9,7 +9,7 @@ add_action( 'cmb2_admin_init', 'bloodbridge_register_metabox' );
  */
 function bloodbridge_register_metabox() {
 	/**
-	 * Metabox for Blood Request Post Type: $blood_request_post_type
+	 * Metabox for "Blood Request" Post Type: $blood_request_post_type
 	 */
 	$blood_request_post_type = new_cmb2_box( array(
 		'id'            => 'bloodbridge_posts_metabox',
