@@ -9,16 +9,16 @@ add_action( 'cmb2_admin_init', 'bloodbridge_register_metabox' );
  */
 function bloodbridge_register_metabox() {
 	/**
-	 * Post Format metaboxs
+	 * Metabox for Blood Request Post Type: $blood_request_post_type
 	 */
-	$cmb_posts = new_cmb2_box( array(
+	$blood_request_post_type = new_cmb2_box( array(
 		'id'            => 'bloodbridge_posts_metabox',
 		'title'         => esc_html__( 'Post Fields', 'cmb2' ),
 		'object_types'  => array( 'blood_request' ), // Post type
 	) );
 
 	// Hospital Latitude
-	$cmb_posts->add_field( array(
+	$blood_request_post_type->add_field( array(
 		'name' => esc_html__( 'Hospital Latitude', 'cmb2' ),
 		'desc' => esc_html__( 'Enter hospital location\'s latitude', 'cmb2' ),
 		'id'   => 'bloodbridge_hospital_latitude',
@@ -26,7 +26,7 @@ function bloodbridge_register_metabox() {
 	) );
 
 	// Hospital Longitude
-	$cmb_posts->add_field( array(
+	$blood_request_post_type->add_field( array(
 		'name' => esc_html__( 'Hospital Longitude', 'cmb2' ),
 		'desc' => esc_html__( 'Enter hospital location\'s longitude', 'cmb2' ),
 		'id'   => 'bloodbridge_hospital_longitude',
@@ -34,7 +34,7 @@ function bloodbridge_register_metabox() {
 	) );
 
 	// Hospital Address
-	$cmb_posts->add_field( array(
+	$blood_request_post_type->add_field( array(
 		'name'         => esc_html__( 'Hospital Address', 'cmb2' ),
 		'desc'         => esc_html__( 'Enter hospital address', 'cmb2' ),
 		'id'           => 'bloodbridge_hospital_address',
