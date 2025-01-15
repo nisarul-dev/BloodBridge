@@ -12,8 +12,8 @@ function bloodbridge_register_metabox() {
 	 * Metabox for "Blood Request" Post Type: $blood_request_post_type
 	 */
 	$blood_request_post_type = new_cmb2_box( array(
-		'id'            => 'bloodbridge_posts_metabox',
-		'title'         => esc_html__( 'Post Fields', 'cmb2' ),
+		'id'            => 'bloodbridge_blood_request_posts_metabox',
+		'title'         => esc_html__( 'Blood Request Post Fields', 'cmb2' ),
 		'object_types'  => array( 'blood_request' ), // Post type
 	) );
 
