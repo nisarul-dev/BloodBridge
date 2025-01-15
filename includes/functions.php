@@ -37,7 +37,7 @@ function register_hospital_meta_fields() {
     }
 }
 
-add_action('init', 'register_hospital_meta_fields');
+// add_action('init', 'register_hospital_meta_fields');
 
 /**
  * Registers custom meta fields for 'Blood Requests' post type.
@@ -79,10 +79,11 @@ function register_blood_requests_meta_fields() {
     ];
 
     foreach ($meta_fields as $key => $args) {
-        register_post_meta('blood_requests', $key, $args);
+        register_post_meta('blood_request', $key, $args);
     }
 }
 
+add_action('init', 'register_blood_requests_meta_fields');
 
 
 /**

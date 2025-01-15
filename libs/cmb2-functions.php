@@ -14,7 +14,7 @@ function bloodbridge_register_metabox() {
 	$cmb_posts = new_cmb2_box( array(
 		'id'            => 'bloodbridge_posts_metabox',
 		'title'         => esc_html__( 'Post Fields', 'cmb2' ),
-		'object_types'  => array( 'post' ), // Post type
+		'object_types'  => array( 'blood_request' ), // Post type
 	) );
 
 	// Hospital Latitude
