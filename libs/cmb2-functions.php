@@ -41,14 +41,6 @@ function bloodbridge_register_metabox() {
 		'type'         => 'text',
 	) );
 
-	// Hospital Address
-	$blood_request_post_type->add_field( array(
-		'name'         => esc_html__( 'Hospital Address', 'cmb2' ),
-		'desc'         => esc_html__( 'Enter hospital address', 'cmb2' ),
-		'id'           => 'bloodbridge_hospital_address',
-		'type'         => 'text',
-	) );
-
 
 	/**
 	 * Metabox for "Booking" Post Type: $booking_post_type
