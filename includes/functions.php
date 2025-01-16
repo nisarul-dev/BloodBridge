@@ -93,12 +93,6 @@ add_action('init', 'register_blood_requests_meta_fields');
  */
 function register_bookings_meta_fields() {
     $meta_fields = [
-        'booking_id' => [
-            'type'         => 'integer',
-            'description'  => 'The booking ID',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
         'booking_date' => [
             'type'         => 'string',
             'description'  => 'The date of the booking',

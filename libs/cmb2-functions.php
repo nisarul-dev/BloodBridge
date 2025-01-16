@@ -41,6 +41,50 @@ function bloodbridge_register_metabox() {
 		'type'         => 'text',
 	) );
 
+	// Hospital Address
+	$blood_request_post_type->add_field( array(
+		'name'         => esc_html__( 'Hospital Address', 'cmb2' ),
+		'desc'         => esc_html__( 'Enter hospital address', 'cmb2' ),
+		'id'           => 'bloodbridge_hospital_address',
+		'type'         => 'text',
+	) );
+
+
+	/**
+	 * Metabox for "Booking" Post Type: $booking_post_type
+	 */
+	$booking_post_type = new_cmb2_box( array(
+		'id'            => 'bloodbridge_booking_metabox',
+		'title'         => esc_html__( 'Booking Fields', 'cmb2' ),
+		'object_types'  => array( 'booking' ), // Post type
+	) );
+
+	// The date of the booking
+	$booking_post_type->add_field( array(
+		'name' => esc_html__( 'Booking Date', 'cmb2' ),
+		'desc' => esc_html__( 'Appointment Date of the blood donation', 'cmb2' ),
+		'id'   => 'bloodbridge_booking_date',
+		'type' => 'date',
+	) );
+
+	// The ID of the recipient
+	$blood_request_post_type->add_field( array(
+		'name' => esc_html__( 'Recipient ID', 'cmb2' ),
+		'desc' => esc_html__( 'The User ID of the recipient', 'cmb2' ),
+		'id'   => 'bloodbridge_booking_recipient_id',
+		'type' => 'number',
+	) );
+
+	// The ID of the donor
+	$blood_request_post_type->add_field( array(
+		'name'         => esc_html__( 'Donor ID', 'cmb2' ),
+		'desc'         => esc_html__( 'The User ID of the donor', 'cmb2' ),
+		'id'           => 'bloodbridge_booking_donor_id',
+		'type'         => 'number',
+	) );
+
+
+
 
 	/**
 	 * Simple slider metabox
