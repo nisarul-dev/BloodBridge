@@ -35,7 +35,7 @@ function blood_request_custom_post_type() {
             'revisions',
         ),
         'taxonomies'         => array(),
-        'menu_position'      => 2,
+        'menu_position'      => 1,
         'exclude_from_search'=> false,
         'menu_icon'   => 'dashicons-heart',
     );
@@ -72,13 +72,12 @@ function bookings_custom_post_type() {
         'hierarchical'       => false,
         'supports'           => array(
             'title',
-            'editor',
             'thumbnail',
             'custom-fields',
             'revisions',
         ),
         'taxonomies'         => array(),
-        'menu_position'      => 3,
+        'menu_position'      => 2,
         'exclude_from_search'=> true,
         'menu_icon'   => 'dashicons-calendar-alt',
     );

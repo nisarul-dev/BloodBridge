@@ -49,3 +49,17 @@ function hide_wp_logo_from_admin_bar($wp_admin_bar) {
     $wp_admin_bar->remove_node('wp-logo');
 }
 add_action('admin_bar_menu', 'hide_wp_logo_from_admin_bar', 999);
+
+/**
+ * Change "Post" to "Blog Post" in the WordPress menu or admin interface
+ */
+function change_post_object_labels() {
+    global $wp_post_types;
+    $labels = &$wp_post_types['post']->labels;
+
+    $labels->name = 'Blog Posts';
+    $labels->singular_name = 'Blog Post';
+    $labels->menu_name = 'Blog Posts';
+    $labels->name_admin_bar = 'Blog Post';
+}
+add_action('init', 'change_post_object_labels');
