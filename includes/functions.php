@@ -46,31 +46,31 @@ function register_hospital_meta_fields() {
  */
 function register_blood_requests_meta_fields() {
     $meta_fields = [
-        'hospital_name' => [
+        'hospital_name' => [ // Done
             'type'         => 'string',
             'description'  => 'The name of the hospital',
             'single'       => true,
             'show_in_rest' => true,
         ],
-        'hospital_location' => [
+        'hospital_location' => [ // Done
             'type'         => 'string',
             'description'  => 'The location of the hospital',
             'single'       => true,
             'show_in_rest' => true,
         ],
-        'blood_group' => [
+        'blood_group' => [ // Done
             'type'         => 'string',
             'description'  => 'The blood group required',
             'single'       => true,
             'show_in_rest' => true,
         ],
-        'amount' => [
+        'amount' => [ // Done
             'type'         => 'integer',
             'description'  => 'The amount of blood required',
             'single'       => true,
             'show_in_rest' => true,
         ],
-        'booking_id' => [
+        'booking_id' => [ // Done
             'type'         => 'integer',
             'description'  => 'The associated booking ID',
             'single'       => true,

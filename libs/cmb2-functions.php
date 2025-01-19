@@ -9,12 +9,46 @@ add_action( 'cmb2_admin_init', 'bloodbridge_register_metabox' );
  */
 function bloodbridge_register_metabox() {
 	/**
+	 * ===============================================================
 	 * Metabox for "Blood Request" Post Type: $blood_request_post_type
+	 * ===============================================================
 	 */
 	$blood_request_post_type = new_cmb2_box( array(
 		'id'            => 'bloodbridge_blood_request_posts_metabox',
 		'title'         => esc_html__( 'Blood Request Post Fields', 'cmb2' ),
 		'object_types'  => array( 'blood_request' ), // Post type
+	) );
+
+	// Blood Group
+	$blood_request_post_type->add_field( array(
+		'name' => esc_html__( 'Blood Group', 'cmb2' ),
+		'desc' => esc_html__( 'Enter Blood Group', 'cmb2' ),
+		'id'   => 'bloodbridge_blood_group',
+		'type' => 'text',
+	) );
+
+	// Blood Amount
+	$blood_request_post_type->add_field( array(
+		'name' => esc_html__( 'Blood Amount', 'cmb2' ),
+		'desc' => esc_html__( 'Enter Blood Amount', 'cmb2' ),
+		'id'   => 'bloodbridge_blood_amount',
+		'type' => 'text',
+	) );
+
+	// Hospital Name
+	$blood_request_post_type->add_field( array(
+		'name'         => esc_html__( 'Hospital Name', 'cmb2' ),
+		'desc'         => esc_html__( 'Enter hospital name', 'cmb2' ),
+		'id'           => 'bloodbridge_hospital_name',
+		'type'         => 'text',
+	) );
+
+	// Hospital Address
+	$blood_request_post_type->add_field( array(
+		'name'         => esc_html__( 'Hospital Address', 'cmb2' ),
+		'desc'         => esc_html__( 'Enter hospital address', 'cmb2' ),
+		'id'           => 'bloodbridge_hospital_address',
+		'type'         => 'text',
 	) );
 
 	// Hospital Latitude
@@ -33,17 +67,19 @@ function bloodbridge_register_metabox() {
 		'type' => 'text',
 	) );
 
-	// Hospital Address
+	// Booking ID
 	$blood_request_post_type->add_field( array(
-		'name'         => esc_html__( 'Hospital Address', 'cmb2' ),
-		'desc'         => esc_html__( 'Enter hospital address', 'cmb2' ),
-		'id'           => 'bloodbridge_hospital_address',
-		'type'         => 'text',
+		'name' => esc_html__( 'Booking ID', 'cmb2' ),
+		'desc' => esc_html__( 'Enter Associated Booking ID', 'cmb2' ),
+		'id'   => 'bloodbridge_booking_id',
+		'type' => 'text',
 	) );
 
-
+	
 	/**
+	 * ===================================================
 	 * Metabox for "Booking" Post Type: $booking_post_type
+	 * ===================================================
 	 */
 	$booking_post_type = new_cmb2_box( array(
 		'id'            => 'bloodbridge_booking_metabox',
@@ -76,65 +112,77 @@ function bloodbridge_register_metabox() {
 	) );
 
 
-
-
 	/**
-	 * Simple slider metabox
+	 * ===================================
+	 * Metabox for the USER PROFILE screen
+	 * ===================================
 	 */
-	/* $simple_slider = new_cmb2_box( array(
-		'id'            => 'bloodbridge_simple_slider_metabox',
-		'title'         => esc_html__( 'Simple Slider Fields', 'cmb2' ),
-		'object_types'  => array( 'simple_slider' ), // Post type
+	$cmb_user = new_cmb2_box( array(
+		'id'               => 'bloodbridge_edit',
+		'title'            => __( 'User Profile Metabox', 'cmb2' ), // Doesn't output for user boxes
+		'object_types'     => array( 'user' ), // Tells CMB2 to use user_meta vs post_meta
+		'show_names'       => true,
+		'new_user_section' => 'add-new-user', // where form will show on new user page. 'add-existing-user' is only other valid option.
 	) );
 
-	$simple_slider->add_field( array(
-		'name' => esc_html__( 'Slider Subtitle', 'cmb2' ),
-		'id'   => 'simple-slider-subtitle',
-		'type' => 'textarea_small',
+	// Fields for user profile screen
+	$cmb_user->add_field( array(
+		'name'     => __( 'User Profile Screen Fields', 'cmb2' ),
+		'desc'     => __( 'Custom Meta Fields for User Profile Screen', 'cmb2' ),
+		'id'       => 'bloodbridge_extra_info',
+		'type'     => 'title',
+		'on_front' => false,
 	) );
 
-	$button_fields_group_id = $simple_slider->add_field( array(
-		'id'                => '_button_fields',
-		'type'              => 'group',
-		'description'       => 'Add button, name it, set URL and select an pre-made style',
-		'options'           => array(
-			'group_title'   => 'Button {#}',
-			'add_button'    => 'Add Another Button',
-			'remove_button' => 'Remove Button',
-			'sortable'      => true
-		)
+	// User Profile Avatar
+	$cmb_user->add_field( array(
+		'name'    => __( 'Profile Avatar', 'cmb2' ),
+		'desc'    => __( '', 'cmb2' ),
+		'id'      => 'bloodbridge_user_avatar',
+		'type'    => 'file',
 	) );
 
-	$simple_slider->add_group_field( $button_fields_group_id, array(
-		'name' => esc_html__( 'Button Text', 'cmb2' ),
-		'id'   => '_simple_slider_button_text', // This is how the ID should be wirtten in CMB2
+	// User's Phone Number
+	$cmb_user->add_field( array(
+		'name' => __( 'Phone Number', 'cmb2' ),
+		'desc' => __( 'User\'s Phone Number', 'cmb2' ),
+		'id'   => 'bloodbridge_user_phone_number',
 		'type' => 'text',
 	) );
 
-	$simple_slider->add_group_field( $button_fields_group_id, array(
-		'name' => esc_html__( 'Button Link', 'cmb2' ),
-		'id'   => '_simple_slider_button_link',
-		'type' => 'text_url',
+	// User's Blood Group
+	$cmb_user->add_field( array(
+		'name' => __( 'Blood Group', 'cmb2' ),
+		'desc' => __( 'Select User\'s Blood Group', 'cmb2' ),
+		'id'   => 'bloodbridge_user_text_field',
+		'type' => 'text',
 	) );
 
-	$simple_slider->add_group_field( $button_fields_group_id, array(
-		'name' => esc_html__( 'Button Style', 'cmb2' ),
-		'id'   => '_simple_slider_button_style',
-		'type' => 'radio',
-		'options'          => array(
-			'style-one' => __(
-				'<span style="display:table-cell;vertical-align:middle;height:50px;" >
-					Style One: &nbsp&nbsp
-				</span>
-				<img style="height:50px;" src="' . get_template_directory_uri() . '/images/button-style-1.png' . '">',
-			'cmb2' ),
-			'style-two'   => __(
-				'<span style="display:table-cell;vertical-align:middle;height:50px;" >
-					Style Two: &nbsp&nbsp
-				</span>
-				<img style="height:50px;" src="' . get_template_directory_uri() . '/images/button-style-2.png' . '">',
-			'cmb2' ),
-		),
-	) ); */
+	// User's Address
+	$cmb_user->add_field( array(
+		'name' => __( 'Present Address', 'cmb2' ),
+		'desc' => __( 'User\'s Present Home Location Address', 'cmb2' ),
+		'id'   => 'bloodbridge_user_address',
+		'type' => 'text',
+	) );
+
+	// User's Address Latitude
+	$cmb_user->add_field( array(
+		'name' => __( 'Address Latitude', 'cmb2' ),
+		'desc' => __( 'Home Location Address\'s Latitude', 'cmb2' ),
+		'id'   => 'bloodbridge_user_address_latitude',
+		'type' => 'text',
+	) );
+
+	// User's Address Longitude
+	$cmb_user->add_field( array(
+		'name' => __( 'Address Longitude', 'cmb2' ),
+		'desc' => __( 'Home Location Address\'s Longitude', 'cmb2' ),
+		'id'   => 'bloodbridge_user_address_longitude',
+		'type' => 'text',
+	) );
+
+
+
 
 }
