@@ -1,121 +1,44 @@
 <?php
 
 /**
- * Registers custom meta fields for hospital posts.
- *
- * This function registers the following meta fields:
- * - bloodbridge_hospital_latitude: The latitude coordinate of the hospital.
- * - bloodbridge_hospital_longitude: The longitude coordinate of the hospital.
- * - bloodbridge_hospital_address: The address of the hospital.
- * 
+ * Register the Taxonomy: 'Blood Group'
  * @return void
  */
-function register_hospital_meta_fields() {
-    $meta_fields = [
-        'bloodbridge_hospital_latitude' => [
-            'type'         => 'string',
-            'description'  => 'The latitude coordinate of the hospital',
-            'single'       => true,
+function register_blood_group_taxonomy() {
+    // Register the taxonomy
+    register_taxonomy(
+        'blood_group',
+        ['blood_request', 'user'], // Associate with custom post type and users
+        array(
+            'public' => true,
+            'labels' => array(
+                'name' => 'Blood Groups',
+                'singular_name' => 'Blood Group',
+                'search_items' => 'Search Blood Groups',
+                'all_items' => 'All Blood Groups',
+                'edit_item' => 'Edit Blood Group',
+                'update_item' => 'Update Blood Group',
+                'add_new_item' => 'Add New Blood Group',
+                'new_item_name' => 'New Blood Group Name',
+                'menu_name' => 'Blood Groups',
+            ),
+            'hierarchical' => true, // Non-hierarchical like tags
+            'show_ui' => true,
+            'show_in_menu' => true,
+            'show_admin_column' => true,
             'show_in_rest' => true,
-        ],
-        'bloodbridge_hospital_longitude' => [
-            'type'         => 'string',
-            'description'  => 'The longitude coordinate of the hospital',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'bloodbridge_hospital_address' => [
-            'type'         => 'string',
-            'description'  => 'The address of the hospital',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-    ];
-
-    foreach ($meta_fields as $key => $args) {
-        register_post_meta('blood_request', $key, $args);
-    }
+        )
+    );
 }
-
-// add_action('init', 'register_hospital_meta_fields');
+add_action('init', 'register_blood_group_taxonomy');
 
 /**
- * Registers custom meta fields for 'Blood Requests' post type.
- *
+ * Add Taxonomy Support for Users: 'Blood Group' (Because, by default, taxonomies don’t apply to users by default)
  * @return void
  */
-function register_blood_requests_meta_fields() {
-    $meta_fields = [
-        'hospital_name' => [ // Done
-            'type'         => 'string',
-            'description'  => 'The name of the hospital',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'hospital_location' => [ // Done
-            'type'         => 'string',
-            'description'  => 'The location of the hospital',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'blood_group' => [ // Done
-            'type'         => 'string',
-            'description'  => 'The blood group required',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'amount' => [ // Done
-            'type'         => 'integer',
-            'description'  => 'The amount of blood required',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'booking_id' => [ // Done
-            'type'         => 'integer',
-            'description'  => 'The associated booking ID',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-    ];
-
-    foreach ($meta_fields as $key => $args) {
-        register_post_meta('blood_request', $key, $args);
-    }
+function add_blood_group_to_users() {
+    register_taxonomy_for_object_type('blood_group', 'user');
 }
+add_action('init', 'add_blood_group_to_users');
 
-add_action('init', 'register_blood_requests_meta_fields');
 
-
-/**
- * Registers custom meta fields for 'Bookings' post type.
- *
- * @return void
- */
-function register_bookings_meta_fields() {
-    $meta_fields = [
-        'booking_date' => [
-            'type'         => 'string',
-            'description'  => 'The date of the booking',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'recipient_id' => [
-            'type'         => 'integer',
-            'description'  => 'The ID of the recipient',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-        'donor_id' => [
-            'type'         => 'integer',
-            'description'  => 'The ID of the donor',
-            'single'       => true,
-            'show_in_rest' => true,
-        ],
-    ];
-
-    foreach ($meta_fields as $key => $args) {
-        register_post_meta('bookings', $key, $args);
-    }
-}
-
-add_action('init', 'register_bookings_meta_fields');

@@ -19,12 +19,18 @@ function bloodbridge_register_metabox() {
 		'object_types'  => array( 'blood_request' ), // Post type
 	) );
 
-	// Blood Group
+	// Blood Group (Taxonomy Select)
 	$blood_request_post_type->add_field( array(
-		'name' => esc_html__( 'Blood Group', 'cmb2' ),
-		'desc' => esc_html__( 'Enter Blood Group', 'cmb2' ),
-		'id'   => 'bloodbridge_blood_group',
-		'type' => 'text',
+		'name'           => 'Blood Group',
+		'desc'           => 'Select the Blood Group',
+		'id'             => 'blood_group_taxonomy_radio',
+		'taxonomy'       => 'blood_group', // Enter Taxonomy Slug
+		'type'           => 'taxonomy_select',
+		// Optional :
+		'text'           => array(
+			'no_terms_text' => 'Sorry, no terms could be found.' // Change default text. Default: "No terms"
+		),
+		'remove_default' => 'true',
 	) );
 
 	// Blood Amount
@@ -75,7 +81,7 @@ function bloodbridge_register_metabox() {
 		'type' => 'text',
 	) );
 
-	
+
 	/**
 	 * ===================================================
 	 * Metabox for "Booking" Post Type: $booking_post_type
@@ -158,6 +164,20 @@ function bloodbridge_register_metabox() {
 		'type' => 'text',
 	) );
 
+	// User's Blood Group (Taxonomy Select)
+	$cmb_user->add_field( array(
+		'name'           => 'Blood Group',
+		'desc'           => 'Select User\'s Blood Group',
+		'id'             => 'blood_group_taxonomy_radio',
+		'taxonomy'       => 'blood_group', // Enter Taxonomy Slug
+		'type'           => 'taxonomy_select',
+		// Optional :
+		'text'           => array(
+			'no_terms_text' => 'Sorry, no terms could be found.' // Change default text. Default: "No terms"
+		),
+		'remove_default' => 'true',
+	) );
+
 	// User's Address
 	$cmb_user->add_field( array(
 		'name' => __( 'Present Address', 'cmb2' ),
@@ -183,6 +203,7 @@ function bloodbridge_register_metabox() {
 	) );
 
 
+// ===============================================================
 
 
 }
