@@ -72,7 +72,6 @@ function bookings_custom_post_type() {
         'hierarchical'       => false,
         'supports'           => array(
             'title',
-            'thumbnail',
             'custom-fields',
             'revisions',
         ),
