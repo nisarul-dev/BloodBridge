@@ -37,6 +37,12 @@ if( file_exists( plugin_dir_path(__FILE__) . 'includes/admin-panel-organizer.php
     require_once plugin_dir_path(__FILE__) . 'includes/admin-panel-organizer.php';
 }
 
+// Include Custom Rest API Routes
+if( file_exists( plugin_dir_path(__FILE__) . 'includes/custom-routes.php' ) ) {
+    require_once plugin_dir_path(__FILE__) . 'includes/custom-routes.php';
+}
+
+
 
 
 

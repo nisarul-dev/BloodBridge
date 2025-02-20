@@ -156,14 +156,6 @@ function bloodbridge_register_metabox() {
 		'type' => 'text',
 	) );
 
-	// User's Blood Group
-	$cmb_user->add_field( array(
-		'name' => __( 'Blood Group', 'cmb2' ),
-		'desc' => __( 'Select User\'s Blood Group', 'cmb2' ),
-		'id'   => 'bloodbridge_user_text_field',
-		'type' => 'text',
-	) );
-
 	// User's Blood Group (Taxonomy Select)
 	$cmb_user->add_field( array(
 		'name'           => 'Blood Group',

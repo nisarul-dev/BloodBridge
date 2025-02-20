@@ -38,6 +38,8 @@ function blood_request_custom_post_type() {
         'menu_position'      => 1,
         'exclude_from_search'=> false,
         'menu_icon'   => 'dashicons-heart',
+        'map_meta_cap'       => true,
+        'show_in_rest'       => true, // Enable for Gutenberg
     );
     register_post_type('blood_request', $args );
 }
@@ -79,6 +81,8 @@ function bookings_custom_post_type() {
         'menu_position'      => 2,
         'exclude_from_search'=> true,
         'menu_icon'   => 'dashicons-calendar-alt',
+        'map_meta_cap'       => true,
+        'show_in_rest'       => true, // Enable for Gutenberg
     );
     register_post_type('booking', $args );
 }
