@@ -194,6 +194,22 @@ function bloodbridge_register_metabox() {
 		'type' => 'text',
 	) );
 
+	// User's Medical Condition
+	$cmb_user->add_field( array(
+		'name' => __( 'Medical Condition', 'cmb2' ),
+		'desc' => __( 'E.g. Diabetes, Hypertension, None', 'cmb2' ),
+		'id'   => 'bloodbridge_user_medical_condition',
+		'type' => 'text',
+	) );
+
+	// User's Medical Condition
+	$cmb_user->add_field( array(
+		'name' => __( 'User is a smoker?', 'cmb2' ),
+		'desc' => __( 'Is the user a smoker?', 'cmb2' ),
+		'id'   => 'bloodbridge_user_smoker',
+		'type' => 'text',
+	) );
+
 
 // ===============================================================
 

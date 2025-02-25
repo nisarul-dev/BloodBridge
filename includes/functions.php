@@ -112,3 +112,17 @@ function create_blood_contributor_role() {
 }
 add_action('init', 'create_blood_contributor_role');
 
+/**
+ * To include the user's username in the response along with the other fields (token, user_email, user_nicename, user_display_name)   
+ * @param array $data
+ * @param WP_User $user
+ * @return array 
+ */
+function add_user_details_to_jwt_response($data, $user) {
+    // Add the username and user ID to the response
+    $data['username'] = $user->user_login;
+    $data['user_id'] = $user->ID;
+
+    return $data;
+}
+add_filter('jwt_auth_token_before_dispatch', 'add_user_details_to_jwt_response', 10, 2);
