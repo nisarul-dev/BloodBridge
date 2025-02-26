@@ -171,7 +171,8 @@ function blood_bridge_get_users_callback(WP_REST_Request $request) {
         
         $filtered_users[] = [
             'id' => $user_id,
-            'name' => $user->display_name,
+            'name' => get_user_meta($user->ID, 'first_name', true) . ' ' . get_user_meta($user->ID, 'last_name', true),
+            'username' => $user->user_login,
             'email' => $user->user_email,
             'phone' => get_user_meta($user_id, 'bloodbridge_user_phone_number', true),
             'address' => get_user_meta($user_id, 'bloodbridge_user_address', true),
