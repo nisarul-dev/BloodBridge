@@ -134,3 +134,85 @@ function blood_bridge_get_user_callback(WP_REST_Request $request) {
     
     return new WP_REST_Response($user_data, 200);
 }
+
+
+
+
+
+
+function blood_bridge_get_users_callback(WP_REST_Request $request) {
+    $blood_group = sanitize_text_field($request->get_param('blood_group'));
+    $latitude = sanitize_text_field($request->get_param('latitude'));
+    $longitude = sanitize_text_field($request->get_param('longitude'));
+    $smoker = sanitize_text_field($request->get_param('smoker'));
+
+    $args = [
+        'role'    => 'blood_contributor',
+        'number'  => -1
+    ];
+
+    $user_query = new WP_User_Query($args);
+    $users = $user_query->get_results();
+
+    $filtered_users = [];
+    
+    foreach ($users as $user) {
+        $user_id = $user->ID;
+        $user_blood_group = wp_get_object_terms($user_id, 'blood_group', ['fields' => 'names']);
+        $user_latitude = get_user_meta($user_id, 'bloodbridge_user_address_latitude', true);
+        $user_longitude = get_user_meta($user_id, 'bloodbridge_user_address_longitude', true);
+        $user_smoker = get_user_meta($user_id, 'bloodbridge_user_smoker', true);
+        
+        // Filter users based on criteria
+        if ($blood_group && !in_array($blood_group, $user_blood_group)) continue;
+        if ($smoker !== '' && $smoker != $user_smoker) continue;
+        
+        $distance = ($latitude && $longitude) ? haversine_distance($latitude, $longitude, $user_latitude, $user_longitude) : null;
+        
+        $filtered_users[] = [
+            'id' => $user_id,
+            'name' => $user->display_name,
+            'email' => $user->user_email,
+            'phone' => get_user_meta($user_id, 'bloodbridge_user_phone_number', true),
+            'address' => get_user_meta($user_id, 'bloodbridge_user_address', true),
+            'blood_group' => $user_blood_group,
+            'smoker' => $user_smoker,
+            'distance_from_hospital' => $distance
+        ];
+    }
+    
+    if ($latitude && $longitude) {
+        usort($filtered_users, function ($a, $b) {
+            return $a['distance_from_hospital'] <=> $b['distance_from_hospital'];
+        });
+    }
+    
+    return new WP_REST_Response($filtered_users, 200);
+}
+
+// Haversine formula to calculate distance between two lat/lng points
+function haversine_distance($lat1, $lon1, $lat2, $lon2) {
+    if (!$lat1 || !$lon1 || !$lat2 || !$lon2) return null;
+    $earth_radius = 6371; // Earth's radius in km
+
+    $dLat = deg2rad($lat2 - $lat1);
+    $dLon = deg2rad($lon2 - $lon1);
+    
+    $a = sin($dLat / 2) * sin($dLat / 2) +
+         cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+         sin($dLon / 2) * sin($dLon / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    
+    return round($earth_radius * $c, 2); // Distance in km
+}
+
+// Register REST API endpoint
+add_action('rest_api_init', function () {
+    register_rest_route('bloodbridge/v1', '/users/', [
+        'methods'  => 'GET',
+        'callback' => 'blood_bridge_get_users_callback',
+        'permission_callback' => '__return_true',
+    ]);
+});
+
+
